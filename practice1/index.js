@@ -1,4 +1,4 @@
-console.log('Im Working. Im Js. Im Beautiful. Im worth it')
+const c = 221
 let a = 221
-let b = a - 5
+c = a - 5
 console.log(b)
