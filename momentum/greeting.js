@@ -1,14 +1,14 @@
 const USER_LS = "currentUser",
     SHOWING_ON = "showing",
-    PREV_ONLOAD = window.onload
+    PREV_ONLOAD_GREETING = window.onload
 
-let form, input, greeting
+let greetingForm, greetingInput, greeting
 
 window.onload = function() {
-    PREV_ONLOAD()
+    PREV_ONLOAD_GREETING()
 
-    form = document.querySelector(".js-form")
-    input = form.querySelector("input")
+    greetingForm = document.querySelector(".js-form")
+    greetingInput = greetingForm.querySelector("input")
     greeting = document.querySelector(".js-greeting")
 
     initGreeting()
@@ -18,27 +18,27 @@ function saveName(text) {
     localStorage.setItem(USER_LS, text)
 }
 
-function handleSubmit(event) {
+function handleGreetingSubmit(event) {
     event.preventDefault()
-    const currentValue = input.value
+    const currentValue = greetingInput.value
     paintGreeting(currentValue)
     saveName(currentValue)
 }
 
 function askForName() {
-    form.classList.add(SHOWING_ON)
-    form.addEventListener("submit", handleSubmit)
+    greetingForm.classList.add(SHOWING_ON)
+    greetingForm.addEventListener("submit", handleGreetingSubmit)
 }
 
 function paintGreeting(text) {
-    form.classList.remove(SHOWING_ON)
+    greetingForm.classList.remove(SHOWING_ON)
     greeting.classList.add(SHOWING_ON)
     greeting.innerText = `Hello, ${text}`
 }
 
 function loadName() {
     const currentUser = localStorage.getItem(USER_LS)
-    if(currentUser === null) {
+    if (currentUser === null) {
         askForName()
     } else {
         paintGreeting(currentUser)
