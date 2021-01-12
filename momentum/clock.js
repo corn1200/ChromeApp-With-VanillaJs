@@ -4,7 +4,7 @@ window.onload = function() {
     clockContainer = document.querySelector(".js-clock")
     clockTitle = document.querySelector("h1")
 
-    init()
+    initClock()
 }
 
 function getTime() {
@@ -21,7 +21,7 @@ function getTime() {
     }`
 }
 
-function init() {
+function initClock() {
     getTime()
     setInterval(getTime, 1000)
 }
