@@ -41,7 +41,7 @@ function deleteToDo(event) {
 }
 
 // localstorage에 toDos의 현재 배열 상태를 JSON 구조로
-// 변환하여 초기화한다
+// 변환하여 초기화함
 function saveToDos() {
     localStorage.setItem(TODOS_LS, JSON.stringify(toDos))
 }
@@ -58,7 +58,7 @@ function saveToDos() {
 // ToDoList를 출력하는 ul인 toDoList에 list를 추가
 // ToDoList의 내용과 id값을 가진 오브젝트를 생성
 // toDos 배열에 오브젝트를 추가하고 localstorage에 
-// 현재 toDos의 배열을 JSON으로 변환하고 초기화한다
+// 현재 toDos의 배열을 JSON으로 변환하고 초기화함
 function paintToDo(text) {
     const li = document.createElement("li")
     const delBtn = document.createElement("button")
