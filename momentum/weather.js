@@ -1,4 +1,6 @@
-const PREV_ONLOAD_WEATHER = window.onload
+const API_KEY = "1b9d3024cb88207299e87d357b8c7ee1",
+    COORDS = 'coords',
+    PREV_ONLOAD_WEATHER = window.onload
 
 window.onload = function() {
     PREV_ONLOAD_WEATHER()
@@ -6,6 +8,37 @@ window.onload = function() {
     initWeather()
 }
 
+function saveCoords(coordsObj) {
+    localStorage.setItem(COORDS, JSON.stringify(coordsObj))
+}
+
+function handleGeoSucces(position) {
+    const latitude = position.coords.latitude
+    const longitude = position.coords.longitude
+    const coordsObj = {
+        latitude,
+        longitude
+    }
+    saveCoords(coordsObj)
+}
+
+function handleGeoError() {
+    console.log("Cant access geo location")
+}
+
+function askForCoords() {
+    navigator.geolocation.getCurrentPosition(handleGeoSucces, handleGeoError)
+}
+
+function loadCoords() {
+    const loadCoords = localStorage.getItem(COORDS)
+    if (loadCoords === null) {
+        askForCoords()
+    } else {
+        // getWeather
+    }
+}
+
 function initWeather() {
-    
+    loadCoords()
 }
