@@ -1,8 +1,8 @@
 body {
     color: #34495e;
-    transition: color 0.5s ease-in-out;
 }
 
+/* 유저 이름 존재 유무로 display 스위칭 */
 .form,
 .greeting {
     display: none;
