@@ -22,6 +22,13 @@ window.onload = function() {
     initToDoList()
 }
 
+// event를 받고 event를 호출한 버튼을 할당
+// event를 호출한 요소의 부모 요소 list를 할당
+// ToDoList를 관리하는 ul에서 삭제버튼을 누른
+// list를 제거하고 filter 함수를 이용해
+// 삭제된 id의 요소를 제외하고 다시 배열을 반환함
+// toDos를 정리한 cleanToDos로 바꾸고
+// localstorage에 현재 toDos를 저장함
 function deleteToDo(event) {
     const btn = event.target
     const li = btn.parentNode
