@@ -14,6 +14,7 @@ body {
     display: block;
 }
 
+/* 배경화면의 애니메이션 */
 @keyframes fadeIn {
     from {
         transform: scale(2);
@@ -25,7 +26,7 @@ body {
     }
 }
 
-
+/* 배경화면의 */
 .bgImage {
     position: absolute;
     top: 0;
