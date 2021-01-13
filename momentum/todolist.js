@@ -2,13 +2,12 @@
 // localstorage의 ToDoList의 값을 저장할 배열
 // 이전 window.onload의 동작을 저장함
 const TODOS_LS = 'toDos',
-    toDos = [],
     PREV_ONLOAD_TODOLIST = window.onload
 
 // ToDoList를 작성하는 폼과
 // ToDoList의 내용을 입력한 input
 // ToDoList를 list로 출력하는 ul
-let toDoForm, toDoInput, toDoList
+let toDoForm, toDoInput, toDoList, toDos = []
 
 // 윈도우 로딩 후 이전 onload를 호출함
 // 요소를 검색하여 변수에 할당함
@@ -21,6 +20,17 @@ window.onload = function() {
     toDoList = document.querySelector(".js-toDoList")
 
     initToDoList()
+}
+
+function deleteToDo(event) {
+    const btn = event.target
+    const li = btn.parentNode
+    toDoList.removeChild(li)
+    const cleanToDos = toDos.filter(function(toDo) {
+        return toDo.id !== li.id
+    })
+    toDos = cleanToDos
+    saveToDos()
 }
 
 // localstorage에 toDos의 현재 배열 상태를 JSON 구조로
@@ -48,6 +58,7 @@ function paintToDo(text) {
     const span = document.createElement("span")
     const newId = toDos.length + 1
     delBtn.innerText = "❌"
+    delBtn.addEventListener("click", deleteToDo)
     span.innerText = text
     li.appendChild(delBtn)
     li.appendChild(span)
