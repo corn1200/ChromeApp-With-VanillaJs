@@ -5,9 +5,11 @@ const API_KEY = "1b9d3024cb88207299e87d357b8c7ee1",
     COORDS = 'coords',
     PREV_ONLOAD_WEATHER = window.onload
 
+// 온도와 위치 정보를 출력하는 span
 let weather
 
 // 윈도우 로딩 후 이전 onload 동작을 실행
+// 온도와 위치 정보를 출력할 span을 변수에 할당한다
 // 파일에서 담당하는 모든 기능을 실행함
 window.onload = function() {
     PREV_ONLOAD_WEATHER()
@@ -17,12 +19,12 @@ window.onload = function() {
     initWeather()
 }
 
+// 날씨 정보를 불러오고 그 중 
 function getWeather(lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
     ).then(function(response) {
         return response.json()
-    }
-    ).then(function(json) {
+    }).then(function(json) {
         const temperature = json.main.temp
         const place = json.name
         weather.innerText = `${temperature} @ ${place}`
