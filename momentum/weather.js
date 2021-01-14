@@ -5,12 +5,28 @@ const API_KEY = "1b9d3024cb88207299e87d357b8c7ee1",
     COORDS = 'coords',
     PREV_ONLOAD_WEATHER = window.onload
 
+let weather
+
 // 윈도우 로딩 후 이전 onload 동작을 실행
 // 파일에서 담당하는 모든 기능을 실행함
 window.onload = function() {
     PREV_ONLOAD_WEATHER()
 
+    weather = document.querySelector(".js-weather")
+
     initWeather()
+}
+
+function getWeather(lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+    ).then(function(response) {
+        return response.json()
+    }
+    ).then(function(json) {
+        const temperature = json.main.temp
+        const place = json.name
+        weather.innerText = `${temperature} @ ${place}`
+    })
 }
 
 // 매개변수로 받은 오브젝트를 localstorage에
@@ -29,6 +45,7 @@ function handleGeoSucces(position) {
         longitude
     }
     saveCoords(coordsObj)
+    getWeather(latitude, longitude)
 }
 
 // 위치 정보 제공을 거부하면 메세지를 콘솔에 출력
@@ -46,11 +63,12 @@ function askForCoords() {
 // 좌표값이 localstorage에 존재하지 않을 시
 // 위치 정보를 새로 받음
 function loadCoords() {
-    const loadCoords = localStorage.getItem(COORDS)
-    if (loadCoords === null) {
+    const loadedCoords = localStorage.getItem(COORDS)
+    if (loadedCoords === null) {
         askForCoords()
     } else {
-        // getWeather
+        const parseCoords = JSON.parse(loadedCoords)
+        getWeather(parseCoords.latitude, parseCoords.longitude)
     }
 }
 
