@@ -148,17 +148,27 @@ body {
     flex-wrap: wrap; 
     justify-content: space-around;
 }
-
-section > div > div {
+.toDoList > div {
     display: flex;
     flex-direction: column;
     flex-basis: 21%;
-    border-bottom: #ffffff solid 3px;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.8);
+    transition: 0.5s ease-in-out;
+}
+
+.toDoList > div:hover {
+    border-bottom: 3px solid rgba(255, 255, 255, 1);
+    backdrop-filter: blur(30px);
 }
 
 .toDoList button {
     align-self: center;
     display: block;
+    outline: none;
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
 }
 
 .location {

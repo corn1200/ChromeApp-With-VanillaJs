@@ -78,10 +78,10 @@ function focusInToDoList() {
 // localstorage에 현재 toDos를 저장함
 function deleteToDo(event) {
     const btn = event.target
-    const li = btn.parentNode
-    toDoList.removeChild(li)
+    const div = btn.parentNode
+    toDoList.removeChild(div)
     const cleanToDos = toDos.filter(function(toDo) {
-        return toDo.id !== parseInt(li.id)
+        return toDo.id !== parseInt(div.id)
     })
     toDos = cleanToDos
     saveToDos()
@@ -107,17 +107,17 @@ function saveToDos() {
 // toDos 배열에 오브젝트를 추가하고 localstorage에 
 // 현재 toDos의 배열을 JSON으로 변환하고 초기화함
 function paintToDo(text) {
-    const li = document.createElement("li")
+    const div = document.createElement("div")
     const delBtn = document.createElement("button")
     const span = document.createElement("span")
     const newId = toDos.length + 1
-    delBtn.innerText = "❌"
+    delBtn.innerText = "X"
     delBtn.addEventListener("click", deleteToDo)
     span.innerText = text
-    li.appendChild(delBtn)
-    li.appendChild(span)
-    li.id = newId;
-    toDoList.appendChild(li)
+    div.appendChild(delBtn)
+    div.appendChild(span)
+    div.id = newId;
+    toDoList.appendChild(div)
     const toDoObj = {
         text: text,
         id: newId
