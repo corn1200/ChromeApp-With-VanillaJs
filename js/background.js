@@ -21,14 +21,14 @@ window.onload = function() {
 
 function loadBackground() {
     const savedImage = localStorage.getItem("bg")
-    // if (savedImage === null) {
+    if (savedImage === null) {
         getBackgroud()
-    // } else {
+    } else {
         const parsedImage = JSON.parse(savedImage)
-        // const today = new Date()
-        // if (today < parsedImage.expiresOn) {
-        //     getBackgroud()
-        // } else {
+        const today = new Date()
+        if (today < parsedImage.expiresOn) {
+            getBackgroud()
+        } else {
             const image = new Image()
             image.src = parsedImage.url
             image.classList.add("bgImage")
@@ -40,8 +40,8 @@ function loadBackground() {
 
             locationContainer.innerHTML = `${parsedImage.name}, 
             ${parsedImage.city}, ${parsedImage.country}`
-    //     }
-    // }
+        }
+    }
     return
 }
 
@@ -60,7 +60,7 @@ function saveBackgroud(imageUrl, city, country, name) {
         name
     }
     localStorage.setItem("bg", JSON.stringify(imageObject))
-    // loadBackground()
+    loadBackground()
     return
 }
 
