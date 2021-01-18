@@ -21,11 +21,6 @@ window.onload = function() {
     toDoList = document.querySelector(".js-toDoList")
     toDoListDelete = toDoForm.querySelector("span")
 
-    toDoInput.addEventListener('focusin', focusInToDoList)
-    toDoInput.addEventListener('focusout', focusOutToDoList)
-    toDoInput.addEventListener('input', inputToDoList)
-    toDoListDelete.addEventListener('click', deleteToDoFormInput)
-
     initToDoList()
 }
 
@@ -106,21 +101,26 @@ function saveToDos() {
 // ToDoList의 내용과 id값을 가진 오브젝트를 생성
 // toDos 배열에 오브젝트를 추가하고 localstorage에 
 // 현재 toDos의 배열을 JSON으로 변환하고 초기화함
-function paintToDo(text) {
+function paintToDo(text, date) {
     const div = document.createElement("div")
+    const listDate = document.createElement("div")
     const delBtn = document.createElement("button")
-    const span = document.createElement("span")
+    const listText = document.createElement("div")
     const newId = toDos.length + 1
     delBtn.innerText = "X"
     delBtn.addEventListener("click", deleteToDo)
-    span.innerText = text
+    listText.innerText = text
+    listDate.innerText = date
+    listDate.classList.add("listDate")
     div.appendChild(delBtn)
-    div.appendChild(span)
+    div.appendChild(listDate)
+    div.appendChild(listText)
     div.id = newId;
     toDoList.appendChild(div)
     const toDoObj = {
         text: text,
-        id: newId
+        id: newId,
+        date: date
     }
     toDos.push(toDoObj)
     saveToDos()
@@ -131,8 +131,15 @@ function paintToDo(text) {
 // input 내부를 다시 비워줌
 function handleToDoListSubmit(event) {
     event.preventDefault()
-    const currentValue = toDoInput.value
-    paintToDo(currentValue)
+    const currentValue = toDoInput.value.length > 150 ? toDoInput.value.substr(0, 150) : toDoInput.value 
+    const newDate = new Date()
+    const year = newDate.getFullYear()
+    const month = newDate.getMonth()+1 < 10 ? `0${newDate.getMonth()+1}` : newDate.getMonth()+1
+    const date = newDate.getDate() < 10 ? `0${newDate.getDate()}` : newDate.getDate()
+    const hours = newDate.getHours() < 10 ? `0${newDate.getHours()}` : newDate.getHours()
+    const minutes = newDate.getMinutes() < 10 ? `0${newDate.getMinutes()}` : newDate.getMinutes()
+    const listDate = `${year}/${month}/${date}-${hours}:${minutes}`
+    paintToDo(currentValue, listDate)
     deleteToDoFormInput()
 }
 
@@ -144,7 +151,7 @@ function loadToDos() {
     if (loadToDos !== null) {
         const parsedToDos = JSON.parse(loadToDos)
         parsedToDos.forEach(function(toDo) {
-            paintToDo(toDo.text)
+            paintToDo(toDo.text, toDo.date)
         })
     }
 }
@@ -154,4 +161,8 @@ function loadToDos() {
 function initToDoList() {
     loadToDos()
     toDoForm.addEventListener("submit", handleToDoListSubmit)
+    toDoInput.addEventListener('focusin', focusInToDoList)
+    toDoInput.addEventListener('focusout', focusOutToDoList)
+    toDoInput.addEventListener('input', inputToDoList)
+    toDoListDelete.addEventListener('click', deleteToDoFormInput)
 }
