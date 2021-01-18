@@ -1,6 +1,6 @@
 // 이전 onload를 불러오는 상수
 const ACCESS_KEY = "jebsyaTCtg0jqVCxl0CvfCmYIRg9UvctXOoLm5LRn0c"
-    UNSPLASH_URL = `https://api.unsplash.com/photos/random/?client_id=${ACCESS_KEY}&query=landscape&orientation=landscape&feature=true`
+    UNSPLASH_URL = `https://api.unsplash.com/photos/random/?client_id=${ACCESS_KEY}&query=landscapes&orientation=landscape&featured=true`
     UNUSE_BACKGROUND = "https://source.unsplash.com/random"
     NONE = "None",
     PREV_ONLOAD_BACKGROUND = window.onload
@@ -21,14 +21,14 @@ window.onload = function() {
 
 function loadBackground() {
     const savedImage = localStorage.getItem("bg")
-    if (savedImage === null) {
+    // if (savedImage === null) {
         getBackgroud()
-    } else {
+    // } else {
         const parsedImage = JSON.parse(savedImage)
-        const today = new Date()
-        if (today < parsedImage.expiresOn) {
-            getBackgroud()
-        } else {
+        // // const today = new Date()
+        // if (today < parsedImage.expiresOn) {
+        //     getBackgroud()
+        // } else {
             const image = new Image()
             image.src = parsedImage.url
             image.classList.add("bgImage")
@@ -40,8 +40,8 @@ function loadBackground() {
 
             locationContainer.innerHTML = `${parsedImage.name}, 
             ${parsedImage.city}, ${parsedImage.country}`
-        }
-    }
+    //     }
+    // }
     return
 }
 
@@ -60,7 +60,7 @@ function saveBackgroud(imageUrl, city, country, name) {
         name
     }
     localStorage.setItem("bg", JSON.stringify(imageObject))
-    loadBackground()
+    // loadBackground()
     return
 }
 
