@@ -1,10 +1,5 @@
 let interacBackground
-let interacClock
-let interacForm
-let interacGreeting
-let interacToDoForm
-let interacToDoList
-
+let loadInteracBackground
 let x = 0
 let y = 0
 let mouseX = 0
@@ -17,11 +12,9 @@ const PREV_ONLOAD_INTERACEFFECT = window.onload
 window.onload = function() {
     PREV_ONLOAD_INTERACEFFECT()
     
-    interacBackground = document.querySelector(".bgImage")
+    loadInteracBackground = setInterval(initInteracBackground, 1000)
 
     window.addEventListener('mousemove', mouseFunc, false)
-
-    loop()
 }
 
 function mouseFunc(e) {
@@ -36,4 +29,12 @@ function loop() {
     interacBackground.style.transform = `scale(1.05) translate(${-(mouseX / 40)}px, ${-(mouseY / 40)}px)`
 
     window.requestAnimationFrame(loop)
+}
+
+function initInteracBackground() {
+    interacBackground = document.querySelector(".bgImage")
+    if (interacBackground !== null) {
+        clearInterval(loadInteracBackground)
+        loop()
+    }
 }

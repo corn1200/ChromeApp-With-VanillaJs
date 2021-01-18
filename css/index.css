@@ -257,12 +257,13 @@ body {
 .bgImage {
     position: fixed;
     background-size: cover;
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
     top: 0;
     left: 0;
     width: 120%;
     height: 120%;
     z-index: -1;
-    transform: scale(1.1);
+    transform: scale(1.05);
+    align-self: center;
 }
